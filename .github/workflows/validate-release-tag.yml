@@ -4,6 +4,8 @@ on:
   release:
     types: [published, edited]
 
+permissions: {}
+
 jobs:
   validate-tag:
     runs-on: ubuntu-latest
