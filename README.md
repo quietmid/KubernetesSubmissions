@@ -7,6 +7,7 @@ Repository for DevOps with Kubernetes (University of Helsinki) exercise submissi
 After each exercise, create a GitHub Release whose tag is exactly the exercise number.
 
 Examples of valid tags:
-- `1`
 - `1.1`
-- `2.5`
+- `1.2`
+- `1.3`
+- `1.4`
