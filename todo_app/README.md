@@ -7,7 +7,7 @@ You need Docker, k3d, and kubectl.
 # Full Walkthrough 
 ### 1. Create the k3d cluster
 ```bash 
-k3d cluster create mycluster
+k3d cluster create mycluster # can swap out mycluster to any name you like
 ```
 confirm the cluster is up and kubectl is pointed at it:
 ```bash
