@@ -34,3 +34,4 @@ kubectl get pods -w # the w flag is watching the pod when it shows Running and 1
 ```bash
 kubectl logs deploy/todo-app
 ```
+
