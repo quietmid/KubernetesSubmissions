@@ -24,7 +24,7 @@ k3d image import todo-app:0.1.0 -c mycluster
 ```
 ### 4. Deploy the app
 ```bash
-kubectl apply -f deployment.yaml
+kubectl apply -f manifests/deployment.yaml
 ```
 ### 5. Check if the pod is ready
 ```bash
