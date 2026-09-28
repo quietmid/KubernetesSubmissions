@@ -35,3 +35,22 @@ kubectl get pods -w # the w flag is watching the pod when it shows Running and 1
 kubectl logs deploy/todo-app
 ```
 
+### 7. Check the Service and its endpoint
+
+```bash
+kubectl get svc todo-app
+kubectl get endpoints todo-app
+```
+
+### 8. Access the app through the NodePort
+
+```bash
+kubectl port-forward svc/todo-app 3000:1234
+# you should see similar
+Forwarding from 127.0.0.1:3000 -> 3000
+Forwarding from [::1]:3000 -> 3000
+Handling connection for 3000
+Handling connection for 3000
+```
+
+then you can open [http://localhost:1234](http://localhost:1234)
