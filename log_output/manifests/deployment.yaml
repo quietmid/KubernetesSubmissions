@@ -14,4 +14,7 @@ spec:
     spec:
       containers:
       - name: log-output
-        image: quietmid/log-output:0.1.0
+        image: quietmid/log-output:0.1.1
+        ports:
+        - name: http
+          containerPort: 3000
