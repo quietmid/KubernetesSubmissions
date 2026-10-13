@@ -12,9 +12,26 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+      - name: log-file
+        emptyDir: {}
       containers:
-      - name: log-output
-        image: quietmid/log-output:0.1.1
+      - name: log-generator
+        image: quietmid/log-generator:0.1.1
+        env:
+        - name: LOG_FILE
+          value: /var/log/log-generator/output.log
+        volumeMounts:
+        - name: log-file
+          mountPath: /var/log/log-generator
+      - name: log-reader
+        image: quietmid/log-reader:0.1.1
+        env:
+        - name: LOG_FILE
+          value: /var/log/log-generator/output.log
         ports:
         - name: http
           containerPort: 3000
+        volumeMounts:
+        - name: log-file
+          mountPath: /var/log/log-generator
