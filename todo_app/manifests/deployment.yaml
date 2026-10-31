@@ -12,10 +12,17 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+      - name: shared-data
+        persistentVolumeClaim:
+          claimName: shared-pvc
       containers:
       - name: todo-app
         image: todo-app:0.1.0
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: shared-data
+          mountPath: /data
         ports:
           - containerPort: 3000
         env:
