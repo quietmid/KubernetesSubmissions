@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json ./
 
-COPY server.js ./
+COPY src ./src
 
 EXPOSE 3000
 

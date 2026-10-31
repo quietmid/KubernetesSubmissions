@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Todo App</title>
+		<link rel="stylesheet" href="/styles.css">
+	</head>
+	<body>
+		<h1>Todo App is running</h1>
+		<img id="todo-image" src="/image" alt="Random landscape photo">
+		<section aria-labelledby="add-todo-heading">
+			<h2 id="add-todo-heading">Add a todo</h2>
+			<form id="todo-form">
+				<label for="todo-input"></label>
+				<input
+					id="todo-input"
+					name="todo"
+					type="text"
+					placeholder="enter new todo task (max 140 characters)"
+				>
+				<button id="send-button" type="submit" disabled>Send</button>
+			</form>
+			<p id="new-task" aria-live="polite"></p>
+		</section>
+
+		<section aria-labelledby="existing-todos-heading">
+			<h2 id="existing-todos-heading">Existing todos</h2>
+			<ul id="todo-list">
+				<li>
+					<details>
+						<summary>Learn Kubernetes</summary>
+						<p>this is just a place holder 1</p>
+					</details>
+				</li>
+				<li>
+					<details>
+						<summary>Build a Todo app</summary>
+						<p>this is just a place holder 2</p>
+					</details>
+				</li>
+				<li>
+					<details>
+						<summary>Take a short break</summary>
+						<p>this is just a place holder ... yes you guess it 4!</p>
+					</details>
+				</li>
+			</ul>
+		<h1>DevOps with Kubernete 2026</h1>
+		</section>
+
+		<script>
+			const form = document.querySelector("#todo-form");
+			const input = document.querySelector("#todo-input");
+			const sendButton = document.querySelector("#send-button");
+			const newTask = document.querySelector("#new-task");
+
+			input.addEventListener("input", () => {
+				sendButton.disabled = input.value.length === 0 || input.value.length > 140;
+			});
+
+			form.addEventListener("submit", (event) => {
+				event.preventDefault();
+				const task = input.value.trim();
+				if (task.length === 0 || task.length > 140) {
+					return;
+				}
+
+				newTask.textContent = `this is the new task: ${task}`;
+			});
+		</script>
+	</body>
+</html>

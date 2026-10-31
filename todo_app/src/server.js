@@ -6,6 +6,8 @@ const port = Number(process.env.PORT) || 3000;
 const cacheFile = process.env.IMAGE_CACHE_FILE || "/data/todo-image-cache.json";
 const cacheDurationMs = 10 * 60 * 1000;
 let refreshInProgress;
+const page = await readFile(new URL("./index.html", import.meta.url), "utf8");
+const stylesheet = await readFile(new URL("./styles.css", import.meta.url), "utf8");
 
 async function readCachedImage() {
 	try {
@@ -103,19 +105,18 @@ const server = http.createServer((request, response) => {
 		return;
 	}
 
+	if (request.method === "GET" && request.url?.split("?")[0] === "/styles.css") {
+		response.writeHead(200, {
+			"Content-Type": "text/css; charset=utf-8",
+			"Cache-Control": "no-cache",
+		});
+		response.end(stylesheet);
+		return;
+	}
+
 	if (request.method === "GET" && request.url === "/") {
 		response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-		response.end(`
-			<!doctype html>
-			<html>
-				<head><title>Todo App</title></head>
-				<body style="text-align: center;">
-					<h1>Todo App is running</h1>
-					<img src="/image" alt="Random landscape photo" style="max-width: 50%; height: auto;">
-					<h1>DevOps with Kubernete 2026</h1>
-				</body>
-				</html>
-		`);
+		response.end(page);
 		return;
 	}
 	response.writeHead(404, { "Content-Type": "text/plain" });

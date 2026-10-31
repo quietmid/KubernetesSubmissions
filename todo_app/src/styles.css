@@ -1,0 +1,120 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	max-width: 900px;
+	min-height: 100vh;
+	margin: 0 auto;
+	padding: 2rem 1rem;
+	background: #111827;
+	color: #f9fafb;
+	text-align: center;
+	font-family: sans-serif;
+}
+
+#todo-image {
+	max-width: 50%;
+	height: auto;
+	border-radius: 0.75rem;
+}
+
+section {
+	margin: 2rem auto;
+}
+
+#todo-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	max-width: 680px;
+	margin: 0 auto;
+}
+
+#todo-form label {
+	flex-basis: 100%;
+	text-align: left;
+}
+
+#todo-input {
+	flex: 1;
+	min-width: 0;
+	min-height: 3rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid #4b5563;
+	border-radius: 0.5rem;
+	background: #1f2937;
+	color: #f9fafb;
+	font: inherit;
+}
+
+#todo-input::placeholder {
+	color: #9ca3af;
+}
+
+#todo-input:focus-visible {
+	outline: 2px solid #60a5fa;
+	outline-offset: 2px;
+}
+
+#send-button {
+	min-width: 7rem;
+	min-height: 3rem;
+	padding: 0.75rem 1.5rem;
+	border: 0;
+	border-radius: 0.5rem;
+	background: #2563eb;
+	color: white;
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+#send-button:not(:disabled):hover {
+	background: #1d4ed8;
+}
+
+#send-button:disabled {
+	background: #4b5563;
+	color: #d1d5db;
+	cursor: not-allowed;
+}
+
+#todo-list {
+	max-width: 680px;
+	margin: 1rem auto;
+	padding: 1.25rem 1.25rem 1.25rem 3rem;
+	border: 1px solid #374151;
+	border-radius: 0.75rem;
+	background: #1f2937;
+	text-align: left;
+}
+
+#todo-list li {
+	padding: 0.35rem 0;
+	font-size: 1.2rem;
+	line-height: 1.5;
+}
+
+#todo-list summary {
+	cursor: pointer;
+	list-style: none;
+}
+
+#todo-list summary::-webkit-details-marker {
+	display: none;
+}
+
+#todo-list summary::after {
+	content: " ▶";
+}
+
+#todo-list details[open] > summary::after {
+	content: " ▼";
+}
+
+#todo-list details p {
+	margin: 0.5rem 0 0 1.5rem;
+	color: #d1d5db;
+	font-size: 1rem;
+}
