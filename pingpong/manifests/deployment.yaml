@@ -12,9 +12,19 @@ spec:
       labels:
         app: ping-pong
     spec:
+      volumes:
+      - name: shared-data
+        persistentVolumeClaim:
+          claimName: shared-pvc
       containers:
       - name: ping-pong
         image: quietmid/ping-pong:0.1.1
+        env:
+        - name: COUNT_FILE
+          value: /data/count.txt
+        volumeMounts:
+        - name: shared-data
+          mountPath: /data
         ports:
         - name: http
           containerPort: 3000

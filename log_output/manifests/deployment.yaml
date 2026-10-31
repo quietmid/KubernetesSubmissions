@@ -13,6 +13,9 @@ spec:
         app: log-output
     spec:
       volumes:
+      - name: shared-data
+        persistentVolumeClaim:
+          claimName: shared-pvc
       - name: log-file
         emptyDir: {}
       containers:
@@ -29,9 +32,13 @@ spec:
         env:
         - name: LOG_FILE
           value: /var/log/log-generator/output.log
+        - name: COUNT_FILE
+          value: /data/count.txt
         ports:
         - name: http
           containerPort: 3000
         volumeMounts:
         - name: log-file
           mountPath: /var/log/log-generator
+        - name: shared-data
+          mountPath: /data
