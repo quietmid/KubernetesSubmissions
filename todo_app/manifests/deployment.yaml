@@ -18,7 +18,7 @@ spec:
           claimName: shared-pvc
       containers:
       - name: todo-app
-        image: todo-app:0.1.0
+        image: quietmid/todo-app:0.2.0
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: shared-data

@@ -26,26 +26,7 @@
 
 		<section aria-labelledby="existing-todos-heading">
 			<h2 id="existing-todos-heading">Existing todos</h2>
-			<ul id="todo-list">
-				<li>
-					<details>
-						<summary>Learn Kubernetes</summary>
-						<p>this is just a place holder 1</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Build a Todo app</summary>
-						<p>this is just a place holder 2</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Take a short break</summary>
-						<p>this is just a place holder ... yes you guess it 4!</p>
-					</details>
-				</li>
-			</ul>
+			<ul id="todo-list"></ul>
 		<h1>DevOps with Kubernete 2026</h1>
 		</section>
 
@@ -54,19 +35,59 @@
 			const input = document.querySelector("#todo-input");
 			const sendButton = document.querySelector("#send-button");
 			const newTask = document.querySelector("#new-task");
+			const todoList = document.querySelector("#todo-list");
+
+			function renderTodos(todos) {
+				todoList.replaceChildren(
+					...todos.map((todo) => {
+						const item = document.createElement("li");
+						item.textContent = todo.text;
+						return item;
+					}),
+				);
+			}
+
+			async function loadTodos() {
+				const response = await fetch("/todos");
+				if (!response.ok) {
+					throw new Error(`GET /todos failed with ${response.status}`);
+				}
+				renderTodos(await response.json());
+			}
+
+			loadTodos().catch((error) => {
+				newTask.textContent = "Could not load todos";
+				console.error(error);
+			});
 
 			input.addEventListener("input", () => {
 				sendButton.disabled = input.value.length === 0 || input.value.length > 140;
 			});
 
-			form.addEventListener("submit", (event) => {
+			form.addEventListener("submit", async (event) => {
 				event.preventDefault();
 				const task = input.value.trim();
 				if (task.length === 0 || task.length > 140) {
 					return;
 				}
 
-				newTask.textContent = `this is the new task: ${task}`;
+				try {
+					const response = await fetch("/todos", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ todo: task }),
+					});
+					if (!response.ok) {
+						throw new Error(`POST /todos failed with ${response.status}`);
+					}
+					input.value = "";
+					sendButton.disabled = true;
+					newTask.textContent = "";
+					await loadTodos();
+				} catch (error) {
+					newTask.textContent = "Could not save the todo";
+					console.error(error);
+				}
 			});
 		</script>
 	</body>
