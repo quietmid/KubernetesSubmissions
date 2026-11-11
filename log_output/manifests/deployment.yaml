@@ -13,9 +13,6 @@ spec:
         app: log-output
     spec:
       volumes:
-      - name: shared-data
-        persistentVolumeClaim:
-          claimName: shared-pvc
       - name: log-file
         emptyDir: {}
       containers:
@@ -28,17 +25,15 @@ spec:
         - name: log-file
           mountPath: /var/log/log-generator
       - name: log-reader
-        image: quietmid/log-reader:0.1.1
+        image: quietmid/log-reader:0.1.3
         env:
         - name: LOG_FILE
           value: /var/log/log-generator/output.log
-        - name: COUNT_FILE
-          value: /data/count.txt
+        - name: PINGS_URL
+          value: http://ping-pong:8081/pings
         ports:
         - name: http
           containerPort: 3000
         volumeMounts:
         - name: log-file
           mountPath: /var/log/log-generator
-        - name: shared-data
-          mountPath: /data
